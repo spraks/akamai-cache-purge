@@ -1,0 +1,49 @@
+<% include partials/header %>
+
+<div class='container'>
+
+<h4> You request has been submitted  </h4>
+
+<table class='table'>
+    <thread>
+     <tr>
+        <th>Details</th>
+        <th>Reference</th>
+        <th>Status</th>
+     </tr>
+    </thread>
+    <tbody>
+
+  <% if(data.httpStatus === 201) { %>
+
+    <tbody>
+     <tr class='success'>
+        <td> <%= data.detail %> </td>
+        <td> <%= data.purgeId %> </td>
+        <td> Estimated seconds to clear cache :  <%= data.estimatedSeconds %> </td>
+     </tr>
+    </tbody>
+   </table>
+
+  <% } else { %>
+
+     <tr class='danger'>
+        <td> <%= data.detail %> </td>
+        <td> <%= data.title %> </td>
+        <td> Request failed </td>
+     </tr>
+    </tbody>
+   </table>
+
+<% } %>
+
+
+<form action='/cache-clear' method='GET' >
+	<button class="btn btn-default"> Submit Another request </button>
+</form>
+
+
+</div>
+
+<% include partials/footer %>
+
