@@ -1,6 +1,5 @@
 # akamai-cache-purge
 
-<<<<<<< HEAD
 
 Akamai Cache Purge utility is a expressJs based application which can be used to clear akamai cached URLs. It currently supports single URL cache clear using edgeGrid API.
 
@@ -42,5 +41,4 @@ $ cd akamai-cache-purge
 $ npm install -d
 $ node app.js
 ```
->>>>>>> 3025d007bd89fe16b48d31e4c87b9b894381cec8
 
