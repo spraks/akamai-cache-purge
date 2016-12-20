@@ -39,6 +39,7 @@ Install the dependencies and devDependencies and start the server.
 ```sh
 $ cd akamai-cache-purge
 $ npm install -d
+$ touch .edgerc  ## Add Akamai API credentials
 $ node app.js
 ```
 
