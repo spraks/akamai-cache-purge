@@ -58,8 +58,8 @@ app.post('/cache-clear', function(req,res) {
 
 
 
-app.listen(8080, function () {
-  console.log('Akamai app listening on port 8080!')
+app.listen(3000, function () {
+  console.log('Akamai app listening on port 3000!')
 });
 
 
