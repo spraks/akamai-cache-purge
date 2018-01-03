@@ -21,7 +21,7 @@ jobs:
           command: | 
             # Login to AWS
             aws configure set region $AWS_REGION
-            $(aws ecr get-login --no-include-email)
+            $(aws ecr get-login)
 
             # Tag and push docker image
             docker tag app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
@@ -31,7 +31,7 @@ jobs:
             task_template='[
                 {
                   "name": "%s",
-                  "image": "%s.dkr.ecr.us-east-1.amazonaws.com/%s:%s",
+                  "image": "%s.dkr.ecr.es-west-1.amazonaws.com/%s:%s",
                   "essential": true,
                   "memoryReservation": 1000,
                   "portMappings": [
