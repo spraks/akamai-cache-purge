@@ -78,7 +78,7 @@ jobs:
       - run: 
           name: Install app and test
           command: |
-            agt-get install npm
+            apt-get install npm
             npm install && npm test
             
 # Workflow 
