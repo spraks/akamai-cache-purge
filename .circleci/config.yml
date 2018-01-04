@@ -69,3 +69,21 @@ jobs:
             # Deploy revision
             aws ecs update-service --cluster "$CLUSTER" --service "$SERVICE" --task-definition "$TASK":"$revision"
             return 0
+  test:
+    working_directory: /app
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - checkout
+      - run: 
+          name: Install app and test
+          command: |
+            npm install && npm test
+            
+# Workflow 
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
