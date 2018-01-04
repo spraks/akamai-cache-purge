@@ -39,7 +39,7 @@ jobs:
             task_template='[
                 {
                   "name": "app",
-                  "image": "%s.dkr.ecr.es-west-1.amazonaws.com/%s:%s",
+                  "image": "%s.dkr.ecr.eu-west-1.amazonaws.com/%s:%s",
                   "essential": true,
                   "memoryReservation": 1000,
                   "portMappings": [
