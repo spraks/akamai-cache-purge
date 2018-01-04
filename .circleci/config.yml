@@ -30,8 +30,8 @@ jobs:
             # Create task for docker deploy
             task_template='[
                 {
-                  "name": "%s",
-                  "image": "%s.dkr.ecr.es-west-1.amazonaws.com/%s:%s",
+                  "name": "app",
+                  "image": "%s.dkr.ecr.es-west-1.amazonaws.com/app:%s",
                   "essential": true,
                   "memoryReservation": 1000,
                   "portMappings": [
