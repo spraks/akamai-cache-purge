@@ -19,6 +19,14 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: | 
+            
+            DOCKER_IMAGE='app'
+            CLUSTER='app'
+            FAMILY='app'
+            DOCKER_IMAGE='app'
+            TASK='test-app'
+            SERVICE='app-service'
+
             # Login to AWS
             aws configure set region $AWS_REGION
             $(aws ecr get-login)
@@ -31,7 +39,7 @@ jobs:
             task_template='[
                 {
                   "name": "app",
-                  "image": "%s.dkr.ecr.es-west-1.amazonaws.com/app:%s",
+                  "image": "%s.dkr.ecr.es-west-1.amazonaws.com/%s:%s",
                   "essential": true,
                   "memoryReservation": 1000,
                   "portMappings": [
