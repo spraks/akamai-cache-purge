@@ -69,8 +69,7 @@ jobs:
             # Deploy revision
             aws ecs update-service --cluster "$CLUSTER" --service "$SERVICE" --task-definition "$TASK":"$revision"
             return 0
-  test:
-    working_directory: /app
+  test:    
     docker:
       - image: circleci/node:6
     steps:
