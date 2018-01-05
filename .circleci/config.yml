@@ -32,7 +32,7 @@ jobs:
           name: Run app
           command: |
             set -x
-            docker-compose up -d                        
+            #docker-compose up -d                        
 
       - deploy:
           name: Push application Docker image
@@ -48,7 +48,7 @@ jobs:
 
             # Login to AWS
             aws configure set region $AWS_REGION
-            $(aws ecr get-login)
+            $(aws ecr get-login --no-include-email)
 
             # Tag and push application image
             docker tag app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
