@@ -1,0 +1,25 @@
+version: "3.2"
+
+services:
+    app:
+      build:        
+        context: .
+        dockerfile: Dockerfile        
+      image: 592935288651.dkr.ecr.eu-west-1.amazonaws.com/app:latest
+      ports:
+        - "3000:3000"
+      environment:
+        AWS_ACCOUNT_ID: 592935288651
+        GIT_COMMIT: latest
+      env_file:
+        - ".env"
+
+    load-balancer:
+      build:
+        context: .
+        dockerfile: ./Dockerfile.nginx
+      image: 592935288651.dkr.ecr.eu-west-1.amazonaws.com/load-balancer:latest
+      ports:
+        - "80:80"
+      links:
+        - "app"
