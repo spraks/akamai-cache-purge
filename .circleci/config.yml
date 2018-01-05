@@ -19,14 +19,22 @@ jobs:
             pip install docker-compose
 
       - run: 
-          name: Build application docker image
-          command: |
-            docker build -t app .
+          name: Use docker-compose to build and push
+          command: | 
+            docker-compose build 
+            
+            # Login to AWS
+            aws configure set region $AWS_REGION
+            $(aws ecr get-login --no-include-email)
+            # Push docker images 
+            docker-compose push
 
       - run: 
-          name: Build load balancer image
+          name: Build application app and LB docker image
           command: |
-            docker build -t load-balancer -f Dockerfile.nginx .      
+            set -x
+            #docker build -t app .
+            #docker build -t load-balancer -f Dockerfile.nginx .      
 
       - run: 
           name: Run app
@@ -47,16 +55,16 @@ jobs:
             SERVICE='app-service'
 
             # Login to AWS
-            aws configure set region $AWS_REGION
-            $(aws ecr get-login --no-include-email)
+            #aws configure set region $AWS_REGION
+            #$(aws ecr get-login --no-include-email)
 
             # Tag and push application image
-            docker tag app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
-            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+            #docker tag app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
+            #docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE:$CIRCLE_SHA1
 
             # Tag and push load balancer image
-            docker tag app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$LB_IMAGE:$CIRCLE_SHA1
-            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$LB_IMAGE:$CIRCLE_SHA1
+            #docker tag app $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$LB_IMAGE:$CIRCLE_SHA1
+            #docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$LB_IMAGE:$CIRCLE_SHA1
 
             # Create task for docker deploy
             task_template='[

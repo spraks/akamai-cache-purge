@@ -5,18 +5,17 @@ services:
       build:        
         context: .
         dockerfile: Dockerfile        
-      image: 592935288651.dkr.ecr.eu-west-1.amazonaws.com/app:latest
+      image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/app:${CIRCLE_SHA1}
       ports:
         - "3000:3000"
       environment:
-        AWS_ACCOUNT_ID: 592935288651
-        GIT_COMMIT: latest
+        AWS_ACCOUNT_ID: 123        
 
     load-balancer:
       build:
         context: .
         dockerfile: ./Dockerfile.nginx
-      image: 592935288651.dkr.ecr.eu-west-1.amazonaws.com/load-balancer:latest
+      image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/load-balancer:${CIRCLE_SHA1}
       ports:
         - "80:80"
       links:
