@@ -11,8 +11,6 @@ services:
       environment:
         AWS_ACCOUNT_ID: 592935288651
         GIT_COMMIT: latest
-      env_file:
-        - ".env"
 
     load-balancer:
       build:
