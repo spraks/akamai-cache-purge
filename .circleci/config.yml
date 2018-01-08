@@ -67,33 +67,29 @@ jobs:
             #docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$LB_IMAGE:$CIRCLE_SHA1
 
             # Create task for docker deploy
-            task_template='[
-                {
-                  "name": "%s",
-                  "image": "%s.dkr.ecr.eu-west-1.amazonaws.com/%s:%s",
-                  "essential": true,
-                  "memoryReservation": 1000,
-                  "portMappings": [
-                    {
-                      "containerPort": 3000,
-                      "hostPort": 80
-                    }
-                  ],
-                  "environment" : [
-                      { "name" : "NODE_ENV", "value" : "production" }
-                  ]
-                }
-            ]'
-            echo "$task_template"
-            
-            #task_def=$(printf "$task_template" $TASK $AWS_ACCOUNT_ID $TASK $CIRCLE_SHA1)
-            #echo "$task_def"           
-            # Register task definition
-            #json=$(aws ecs register-task-definition --container-definitions "$task_def" --family "$FAMILY")            
-            # Grab revision # using regular bash and grep
-            #revision=$(echo "$json" | grep -o '"revision": [0-9]*' | grep -Eo '[0-9]+')            
-            # Deploy revision
-            #aws ecs update-service --cluster "$CLUSTER" --service "$SERVICE" --task-definition "$TASK":"$revision"
+            dockerrun_template='{
+              "AWSEBDockerrunVersion": "2",
+              "containerDefinitions": [
+               {
+                 "name": "load-balancer",
+                 "image": "%s.dkr.ecr.%s.amazonaws.com/load-balancer:%s",
+                 "esential": true,
+                 "memory": 128,
+                 "portMappings": [ { "hostPort": 80, "containerPort": 80 } ],
+                 "links": [ "app" ]      
+               },
+               {
+                 "name": "app",
+                 "image": "%s.dkr.ecr.%s.amazonaws.com/app:%s",
+                 "esential": true,
+                 "memory": 512,
+                 "portMappings": [ { "hostPort": 3000, "containerPort": 3000 } ]      
+               }
+              ]
+             }'
+
+            dockerRun=$(printf "$dockerrun_template" $AWS_ACCOUNT_ID $AWS_REGION $CIRCLE_SHA1)
+            echo "$dockerRun"
             return 0
   test:    
     docker:

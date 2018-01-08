@@ -1,0 +1,20 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "containerDefinitions": [
+    {
+      "name": "load-balancer",
+      "image": "$AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/load-balancer:$CIRCLE_SHA1",
+      "esential": true,
+      "memory": 128,
+      "portMappings": [ { "hostPort": 80, "containerPort": 80 } ],
+      "links": [ "app" ]      
+    },
+    {
+      "name": "app",
+      "image": "$AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com/app:$CIRCLE_SHA1",
+      "esential": true,
+      "memory": 512,
+      "portMappings": [ { "hostPort": 3000, "containerPort": 3000 } ]      
+    }
+  ]
+}
