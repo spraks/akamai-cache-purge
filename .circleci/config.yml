@@ -114,3 +114,9 @@ workflows:
                - master 
                - /develop-.*/ 
       - test
+          filters:
+            branches:
+             only:               
+               - develop
+               - /feature-.*/ 
+               - /release-.*/ 
