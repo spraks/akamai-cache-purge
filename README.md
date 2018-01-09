@@ -28,6 +28,10 @@ This utility uses a number of open source projects to work properly:
 And of course akamai-cache-clear itself is open source with a [public repository][dill]
  on GitHub.
 
+## CircleCI
+
+Create build containers on CircleCI and push images to AWS ECR
+
 ### Installation
 
 akamai-cache-clear requires [Node.js](https://nodejs.org/) v4+ to run.
