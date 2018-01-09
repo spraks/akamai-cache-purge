@@ -1,4 +1,10 @@
 version: 2
+
+general:
+  branches:
+    only:
+      - master # list of branches to build
+      - /develop.*/ # or regexes
 jobs:
   build:
     working_directory: /app
