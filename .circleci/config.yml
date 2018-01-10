@@ -5,6 +5,7 @@ jobs:
     working_directory: /app
     docker:
       - image: docker:17.12.0-ce-git
+    parallelism: 3
     steps:
       - checkout
       - setup_remote_docker
