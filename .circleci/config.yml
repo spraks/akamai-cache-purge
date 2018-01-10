@@ -35,6 +35,11 @@ jobs:
           command: |
             set -x
             #docker-compose up -d                        
+  deploy:
+    docker:
+      - image: prakashsubramani/docker-build-image
+    steps:
+      - setup_remote_docker
 
       - deploy:
           name: Push application Docker image
@@ -98,7 +103,7 @@ jobs:
 # Workflow 
 workflows:
   version: 2
-  build_and_test:
+  build_test-deploy:
     jobs:
       - build:
           requires:
@@ -107,7 +112,15 @@ workflows:
             branches:
              only:
                - master 
-               - /develop-.*/ 
+               - /develop-.*/
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+             only:
+               - master 
+               - /develop-.*/                
       - test:
           filters:
             branches:
