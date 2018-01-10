@@ -18,7 +18,7 @@ jobs:
             pip install --upgrade pip
             pip install awscli
             pip install docker-compose
-    steps: 
+    
       - run: 
           name: Use docker-compose to build and push
           command: | 
