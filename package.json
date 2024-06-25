@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "ejs": "^3.1.10",
     "edgegrid": "^3.0.8",
-    "ejs": "^2.5.3",
     "express": "^4.14.0",
     "mocha": "^4.0.1"
   }
